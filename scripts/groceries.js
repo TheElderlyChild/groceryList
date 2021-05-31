@@ -5,21 +5,73 @@
 var products = [
 	{
 		name: "brocoli",
-		vegetarian: true,
-		glutenFree: true,
+		lactoseIntolerant: true,
+		nutAllergy: true,
+		organic: true,
 		price: 1.99
 	},
 	{
 		name: "bread",
-		vegetarian: true,
-		glutenFree: false,
+		lactoseIntolerant: false,
+		nutAllergy: true,
+		organic: false,
 		price: 2.35
 	},
 	{
 		name: "salmon",
-		vegetarian: false,
-		glutenFree: true,
+		lactoseIntolerant: true,
+		nutAllergy: true,
+		organic: true,
 		price: 10.00
+	},
+	{
+		name: "lactose-free milk",
+		lactoseIntolerant: true,
+		nutAllergy: true,
+		organic: false,
+		price: 3.45
+	},
+	{
+		name: "whole milk",
+		lactoseIntolerant: false,
+		nutAllergy: true,
+		organic: true,
+		price: 2.99
+	},
+	{
+		name: "almond",
+		lactoseIntolerant: true,
+		nutAllergy: false,
+		organic: true,
+		price: 7.23
+	},
+	{
+		name: "granola bar",
+		lactoseIntolerant: true,
+		nutAllergy: false,
+		organic: false,
+		price: 2.50
+	},
+	{
+		name: "butter",
+		lactoseIntolerant: false,
+		nutAllergy: true,
+		organic: true,
+		price: 2.97
+	},
+	{
+		name: "spinach",
+		lactoseIntolerant: true,
+		nutAllergy: true,
+		organic: true,
+		price: 1.97
+	},
+	{
+		name: "cheese",
+		lactoseIntolerant: false,
+		nutAllergy: true,
+		organic: false,
+		price: 4.97
 	}
 ];
 	
@@ -28,20 +80,39 @@ var products = [
 // given restrictions provided, make a reduced list of products
 // prices should be included in this list, as well as a sort based on price
 
-function restrictListProducts(prods, restriction) {
+function restrictListProducts(prods, restriction, organicPreference) {
 	let product_names = [];
 	for (let i=0; i<prods.length; i+=1) {
-		if ((restriction == "Vegetarian") && (prods[i].vegetarian == true)){
+		if ((restriction == "LactoseIntolerant") && (prods[i].lactoseIntolerant == true) && 
+		(!((organicPreference == "Yes") && (prods[i].organic == false)))){
 			product_names.push(prods[i].name);
 		}
-		else if ((restriction == "GlutenFree") && (prods[i].glutenFree == true)){
+		else if ((restriction == "NutAllergy") && (prods[i].nutAllergy == true) && 
+		(!((organicPreference == "Yes") && (prods[i].organic == false)))){
 			product_names.push(prods[i].name);
 		}
-		else if (restriction == "None"){
+		else if ((restriction == "None") && 
+		(!((organicPreference == "Yes") && (prods[i].organic == false)))) {
 			product_names.push(prods[i].name);
 		}
 	}
 	return product_names;
+}
+
+function getPrice(chosenProduct){
+	price = 0;
+	for (let i=0; i<products.length; i+=1) {
+		if (chosenProduct==products[i].name){
+			price += products[i].price;
+			break
+		}
+	}
+	return price;
+}
+
+
+function sortProductsByPrice(prods) {
+
 }
 
 // Calculate the total price of items, with received parameter being a list of products
