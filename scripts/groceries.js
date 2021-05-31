@@ -110,9 +110,12 @@ function getPrice(chosenProduct){
 	return price;
 }
 
+function comparePrices(firstProd, secondProd){
+	return getPrice(firstProd) - getPrice(secondProd)
+}
 
-function sortProductsByPrice(prods) {
-
+function sortProductsByPrice(prodArray) {
+	prodArray.sort(comparePrices)
 }
 
 // Calculate the total price of items, with received parameter being a list of products
